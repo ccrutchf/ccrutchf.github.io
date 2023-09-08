@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "ccrutchf"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 bibtexparser = "^1.4.0"
 
 
