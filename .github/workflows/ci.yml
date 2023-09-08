@@ -6,6 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Build publications page
+        run: |
+          apt-get update
+          apt-get install -y python3 python3-pip
+          pip install poetry
+          poetry install
+          poetry run python3 ./generate_publications.py
       - name: Build the site in the jekyll/builder container
         run: |
           export JEKYLL_VERSION=3.8

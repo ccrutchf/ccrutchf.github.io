@@ -21,9 +21,10 @@ author: Christopher L. Crutchfield
 
 navbar-links:
   About Me: "aboutme"
-  Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn markdown: "https://www.markdowntutorial.com/"
+  Publications: "publications"
+  # Resources:
+  #   - Beautiful Jekyll: "https://beautifuljekyll.com"
+  #   - Learn markdown: "https://www.markdowntutorial.com/"
   Home: ""
 
 ################
@@ -286,6 +287,11 @@ exclude:
   - README.md
   - screenshot.png
   - docs/
+  - .github/
+  - .vscode/
+  - poetry.lock
+  - pyproject.toml
+  - generate_publications.py
 
 plugins:
   - jekyll-paginate

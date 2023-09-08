@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "ccrutchf-github-io"
+version = "0.1.0"
+description = ""
+authors = ["Christopher L. Crutchfield"]
+readme = "README.md"
+packages = [{include = "ccrutchf"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+bibtexparser = "^1.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
