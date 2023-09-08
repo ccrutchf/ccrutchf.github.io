@@ -29,5 +29,5 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.11"
-content-hash = "60e9504b8d08da500385bb921095173b95fad5120ca15059794d684d52a95f37"
+python-versions = "^3.10"
+content-hash = "28e8a08022353e79ab361bd28b861038c5ff6e4b14cb9772f9820ac42e57502b"
