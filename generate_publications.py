@@ -1,6 +1,8 @@
 import bibtexparser
 from io import StringIO
 
+# def
+
 def format_authors(author_str: str):
     authors = [a.strip() for a in author_str.split("and")]
         
@@ -30,7 +32,9 @@ def main():
                 "\n"
             ])
 
-        # print(page_content.getvalue())
+    with open("./publications.md", "r") as page_content:
+        print("Publications page generated with content:")
+        print("\n".join(page_content.readlines()))
 
 if __name__ == "__main__":
     main()
