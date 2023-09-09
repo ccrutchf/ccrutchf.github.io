@@ -20,6 +20,9 @@ In our prototype, the lens, enclosure, and camera are all commercially available
 
 We intend to do all processing on an off-camera device to facilitate these design goals. This allows us to use an Olympus TG6 as our camera platform. We will leverage parallax between the camera and a laser rigidly affixed to it. Doing so allows us to estimate the depth of the object that the laser hits. With this information, we can calculate an approximation of the length of that object, which, in this case, is a fish.
 
+![Prototype of FishSense-Lite](/assets/img/next_generation_fishsense/prototype.png "Prototype of FishSense-Lite")
+Prototype of the FishSense-Lite system. Based on a consumer camera, laser, and 3D printed components.
+
 ## Calibration
 
 To perform the parallax calculations, it is necessary to know the camera’s intrinsic parameters. We then need to calculate the baseline between the laser and the camera as well as the angle of the laser with respect to the camera axis.
