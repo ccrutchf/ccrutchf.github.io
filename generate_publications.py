@@ -62,7 +62,9 @@ def main():
             "layout: page\n",
             "title: Publications\n",
             "subtitle:\n",
-            "---\n"
+            "---\n",
+            "\n",
+            "[Bibtex](/publications.bib) [Google Scholar](https://scholar.google.com/citations?user=n0ZF9EcAAAAJ&hl=en) [ORCiD](https://orcid.org/0000-0002-2011-721X)\n"
         ])
 
         for entry in entries:
