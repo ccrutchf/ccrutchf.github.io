@@ -33,8 +33,10 @@ To perform calibration, we take multiple pictures of a known checkerboard patter
 
 The calibration calculations happen off-device, and currently take tens of minutes per camera. We intend to leverage CUDA to improve the calculation performance, as the algorithm is parallelizable.
 
-![Laser calibration for FishSense-Lite.](/assets/img/next_generation_fishsense/calibration_checkerboard.png "Laser calibration for FishSense-Lite.")
-An example calibration photo used for our laser calibration.
+<figure class="image">
+  <img src="/assets/img/next_generation_fishsense/calibration_checkerboard.png" alt="Laser calibration for FishSense-Lite.">
+  <figcaption>An example calibration photo used for our laser calibration.</figcaption>
+</figure>
 
 Using multiple calibration images, as seen above, we can determine the location of the laser. Then, because the checkerboard pattern is known ahead of time, it can be used to calculate the laser’s position using the observed parallax.
 
@@ -44,24 +46,39 @@ Thank you to Viva Suresh for his work designing the laser detection system. Here
 * The laser should be the brightest location in the image.
 * The laser location is constrained based on the baseline and laser axis. Using these two heuristics, we are developing techniques to detect the lasers within images taken by our camera.
 
-![Laser detection on Fred.](/assets/img/next_generation_fishsense/fred_laser_detection.png "Laser detection on Fred.")
-Image representing a laser detected leveraging the first of the two heuristics listed above.
+<figure class="image">
+  <img src="/assets/img/next_generation_fishsense/fred_laser_detection.png" alt="Laser detection on Fred.">
+  <figcaption>Image representing a laser detected leveraging the first of the two heuristics listed above.</figcaption>
+</figure>
 
 The above image represents a laser detected leveraging the first of the two heuristics listed above. As we continue to develop this portion of the project, we intend to leverage the second heuristic to generate a probabilistic map over all pixels in an image to determine which are most likely to be the laser.
 
 ## Fish Detection
 
-Kyle Tran and Viva Suresh worked together to leverage the [Fishial](https://github.com/fishial) project (https://github.com/fishial) for Fish detection and segmentation. This project aims to be able to provide fish segmentation in images as well as species detection. To have better results on fish which we expect to see in our research, we intend to perform additional tuning to the species identification models provided. We intend to use our NVIDIA RTX A6000 GPU to enhance our training performance.
+Kyle Tran and Viva Suresh worked together to leverage the [Fishial](https://github.com/fishial) project ([https://github.com/fishial](https://github.com/fishial)) for Fish detection and segmentation. This project aims to be able to provide fish segmentation in images as well as species detection. To have better results on fish which we expect to see in our research, we intend to perform additional tuning to the species identification models provided. We intend to use our NVIDIA RTX A6000 GPU to enhance our training performance.
+
+<figure class="image">
+  <img src="/assets/img/next_generation_fishsense/fishial_countours.jpg" alt="Fish removed from background using Fishial.">
+  <figcaption>Fish whose contours were detected by the tools provided by the Fishial project.</figcaption>
+</figure>
 
 ## Length Detection
 
 Once we have the contours detected by Fishial, we can perform a principal component analysis to determine the axis with the most variance. On most fish, and the on all the fish we are interested in, this axis closely lines up with the axis we wish to measure the length of.
 
+<figure class="image">
+  <img src="/assets/img/next_generation_fishsense/fish_length.png" alt="Fish length using PCA.">
+  <figcaption>This fish’s contours were determined using Fishial, which was used to calculate the axis of the largest variance. This axis strongly correlates with how we wish to measure the fish.</figcaption>
+</figure>
+
 ## Future Work
 
 At the moment, much of this pipeline requires manual effort. To reduce this and allow us to scale, we intend to automate many steps, outputting a fish’s mass directly from an image of it with a laser point. 
 
-
+<figure class="image">
+  <img src="/assets/img/next_generation_fishsense/fishsense_pipeline.png" alt="Proposed pipeline of the FishSense system.">
+  <figcaption>Proposed pipeline.</figcaption>
+</figure>
 
 Almost all these steps currently in the proposed pipeline require human assistance at some point in their performance. We are confident that we can implement many of these technologies into a coherent package such that it is usable on consumer-grade hardware. Many of these will benefit significantly from CUDA acceleration and are parallelizable or ML-based tasks.
 
@@ -71,7 +88,10 @@ In addition to our citizen science platform, we are building a higher-fidelity s
 
 Stereo cameras can measure depth at every point in an image, not just where the laser hits an object. Thus, we have evaluated many camera pairs to see which will best fit our system.
 
-
+<figure class="image">
+  <img src="/assets/img/next_generation_fishsense/fishsense_depth_resolution.png" alt="Graph of Depth to Length Resoution Relationship.">
+  <figcaption>The image above compares the measured length resolution via mathematical modeling of multiple different cameras we evaluated. Below we will only discuss the cameras we are actively working on.</figcaption>
+</figure>
 
 The image above compares the measured length resolution via mathematical modeling of multiple different cameras we evaluated. Below we will only discuss the cameras we are actively working on.
 
@@ -99,7 +119,15 @@ In the air, we have used this platform for testing other stereo camera pairs. Th
 
 During our in-air testing, we were able to calculate the intrinsics of each of the cameras provided by the Qoocam as well as the extrinsics of the system. With these, Nicholas Chua and Vancheeswaran Vaidyanathan have evaluated methods of calculating disparity. The most success they have had calculating disparity has been using machine learning. Trained on our RTX A600 NVIDIA GPU.
 
+<figure class="image">
+  <img src="/assets/img/next_generation_fishsense/fishsense_qoocam.png" alt="Color image from the Ego Qoocam.">
+  <figcaption>Here is an example image from the left sensor of our Qoocam; we can merge this with an image from the right sensor using our model to calculate a disparity map.</figcaption>
+</figure>
 
+<figure class="image">
+  <img src="/assets/img/next_generation_fishsense/fishsense_qoocam_disparity.png" alt="Disparity map generated from the Ego Qoocam.">
+  <figcaption>Above is an example of such a disparity map calculated with machine learning. Here blue objects are closer to the camera.</figcaption>
+</figure>
 
 ## Future Work
 
