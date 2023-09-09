@@ -5,7 +5,7 @@ subtitle:
 cover-img: /assets/img/next_generation_fishsense/thumbnail.png
 thumbnail-img: /assets/img/next_generation_fishsense/thumbnail.png
 share-img: /assets/img/next_generation_fishsense/thumbnail.png
-tags: [fishsense, e4e]
+tags: [fishsense, e4e, nvidia]
 ---
 
 We’d like to introduce the next generation of our FishSense System. FishSense is a camera platform that aims to estimate the mass of fish visible in an image, using a combination of species identification and automatic length measurement. Now, to meet these goals, we present  our FishSense-Lite and FishSense-Pro systems.
