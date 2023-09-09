@@ -23,7 +23,7 @@ def format_string(title: str):
     for character in characters_to_remove:
         title = title.replace(character, "")
 
-    for key, value in strings_to_replace:
+    for key, value in strings_to_replace.items():
         title = title.replace(key, value)
 
     return title
@@ -32,7 +32,7 @@ def format_common(entry: Dict[str, str]):
     return f'{format_authors(entry["author"])}, "**{format_string(entry["title"])}**"'
 
 def format_link(entry: Dict[str, str]):
-    return f"[PDF](/assets/pdfs/{entry['file'][1:-4]})"
+    return f"([PDF](/assets/pdfs/{entry['file'][1:-4]}))"
 
 def format_date(entry: Dict[str, str]):
     return f"{entry['month']} {entry['year']}"
