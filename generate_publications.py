@@ -1,3 +1,5 @@
+from typing import Callable, Dict
+
 import bibtexparser
 
 def format_authors(author_str: str):
@@ -8,7 +10,7 @@ def format_authors(author_str: str):
     else:
         return authors[0]
     
-def format_title(title: str):
+def format_string(title: str):
     characters_to_remove = [
         "{",
         "}"
@@ -19,6 +21,30 @@ def format_title(title: str):
 
     return title
 
+def format_common(entry: Dict[str, str]):
+    return f'{format_authors(entry["author"])}, "**{format_string(entry["title"])}**"'
+
+def format_link(entry: Dict[str, str]):
+    return f"[PDF](/assets/pdf/{entry['file'][1:-4]})"
+
+def format_date(entry: Dict[str, str]):
+    return f"{entry['month']} {entry['year']}"
+
+def format_article(entry: Dict[str, str]):
+    return f"{format_common(entry)}, *{format_string(entry['journal'])}*, Vol. {entry['volume']}, No. {entry['number']}, Pages {entry['pages'].replace('--', '-')}, {format_date(entry)} {format_link(entry)}"
+
+def format_in_proceedings(entry: Dict[str, str]):
+    return f"{format_common(entry)}, *{format_string(entry['booktitle'])}*, {format_date(entry)} {format_link(entry)}"
+
+def format_masters_thesis(entry: Dict[str, str]):
+    return f"{format_common(entry)}, MS Thesis, Department of Electrical and Computer Engineering, {entry['school']}, {format_date(entry)} {format_link(entry)}"
+
+def format_entry(entry: Dict[str, str]):
+    if entry["ENTRYTYPE"] not in ENTRY_FORMATTERS:
+        raise ValueError(f'"{entry["ENTRYTYPE"]}" is a supported publication type.')
+
+    return ENTRY_FORMATTERS[entry["ENTRYTYPE"]](entry)
+
 def main():
     with open("./publications.bib", "r") as f:
         entries = bibtexparser.load(f).entries
@@ -27,7 +53,7 @@ def main():
         page_content.writelines([
             "---\n",
             "layout: page\n",
-            "title: Publications\n",
+            "title: Publications | Christopher L. Crutchfield\n",
             "subtitle:\n",
             "---\n"
         ])
@@ -35,13 +61,19 @@ def main():
         for entry in entries:
             page_content.writelines([
                 "\n",
-                f'{format_authors(entry["author"])}, "**{format_title(entry["title"])}**"',
+                format_entry(entry),
                 "\n"
             ])
 
     with open("./publications.md", "r") as page_content:
         print("Publications page generated with content:")
         print("\n".join(page_content.readlines()))
+
+ENTRY_FORMATTERS: Dict[str, Callable] = {
+    "article": format_article,
+    "inproceedings": format_in_proceedings,
+    "mastersthesis": format_masters_thesis
+}
 
 if __name__ == "__main__":
     main()
