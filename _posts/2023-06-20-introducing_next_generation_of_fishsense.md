@@ -20,7 +20,8 @@ In our prototype, the lens, enclosure, and camera are all commercially available
 
 We intend to do all processing on an off-camera device to facilitate these design goals. This allows us to use an Olympus TG6 as our camera platform. We will leverage parallax between the camera and a laser rigidly affixed to it. Doing so allows us to estimate the depth of the object that the laser hits. With this information, we can calculate an approximation of the length of that object, which, in this case, is a fish.
 
-![Prototype of FishSense-Lite](/assets/img/next_generation_fishsense/prototype.png "Prototype of FishSense-Lite")
+![Prototype of FishSense-Lite.](/assets/img/next_generation_fishsense/prototype.png "Prototype of FishSense-Lite.")
+
 Prototype of the FishSense-Lite system. Based on a consumer camera, laser, and 3D printed components.
 
 ## Calibration
@@ -31,7 +32,9 @@ To perform calibration, we take multiple pictures of a known checkerboard patter
 
 The calibration calculations happen off-device, and currently take tens of minutes per camera. We intend to leverage CUDA to improve the calculation performance, as the algorithm is parallelizable.
 
+![Laser calibration for FishSense-Lite.](/assets/img/next_generation_fishsense/calibration_checkerboard.png "Laser calibration for FishSense-Lite.")
 
+An example calibration photo used for our laser calibration.
 
 Using multiple calibration images, as seen above, we can determine the location of the laser. Then, because the checkerboard pattern is known ahead of time, it can be used to calculate the laser’s position using the observed parallax.
 
