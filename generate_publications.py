@@ -16,8 +16,15 @@ def format_string(title: str):
         "}"
     ]
 
+    strings_to_replace = {
+        "\\&amp$\\mathsemicolon$": "&"
+    }
+
     for character in characters_to_remove:
         title = title.replace(character, "")
+
+    for key, value in strings_to_replace:
+        title = title.replace(key, value)
 
     return title
 
