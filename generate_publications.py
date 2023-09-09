@@ -63,8 +63,6 @@ def main():
             "title: Publications\n",
             "subtitle:\n",
             "---\n",
-            "\n",
-            "[Jabref Bibtex](/publications.bib) | [Google Scholar](https://scholar.google.com/citations?user=n0ZF9EcAAAAJ&hl=en) | [ORC iD](https://orcid.org/0000-0002-2011-721X)\n"
         ])
 
         for entry in entries:
