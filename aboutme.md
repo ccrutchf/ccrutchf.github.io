@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About me | Christopher L. Crutchfield
+title: About me
 subtitle:
 ---
 

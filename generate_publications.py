@@ -53,7 +53,7 @@ def main():
         page_content.writelines([
             "---\n",
             "layout: page\n",
-            "title: Publications | Christopher L. Crutchfield\n",
+            "title: Publications\n",
             "subtitle:\n",
             "---\n"
         ])
