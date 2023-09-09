@@ -20,9 +20,10 @@ In our prototype, the lens, enclosure, and camera are all commercially available
 
 We intend to do all processing on an off-camera device to facilitate these design goals. This allows us to use an Olympus TG6 as our camera platform. We will leverage parallax between the camera and a laser rigidly affixed to it. Doing so allows us to estimate the depth of the object that the laser hits. With this information, we can calculate an approximation of the length of that object, which, in this case, is a fish.
 
-![Prototype of FishSense-Lite.](/assets/img/next_generation_fishsense/prototype.png "Prototype of FishSense-Lite.")
-
-Prototype of the FishSense-Lite system. Based on a consumer camera, laser, and 3D printed components.
+<figure class="image">
+  <img src="/assets/img/next_generation_fishsense/prototype.png" alt="Prototype of FishSense-Lite.">
+  <figcaption>Prototype of the FishSense-Lite system. Based on a consumer camera, laser, and 3D printed components.</figcaption>
+</figure>
 
 ## Calibration
 
@@ -33,7 +34,6 @@ To perform calibration, we take multiple pictures of a known checkerboard patter
 The calibration calculations happen off-device, and currently take tens of minutes per camera. We intend to leverage CUDA to improve the calculation performance, as the algorithm is parallelizable.
 
 ![Laser calibration for FishSense-Lite.](/assets/img/next_generation_fishsense/calibration_checkerboard.png "Laser calibration for FishSense-Lite.")
-
 An example calibration photo used for our laser calibration.
 
 Using multiple calibration images, as seen above, we can determine the location of the laser. Then, because the checkerboard pattern is known ahead of time, it can be used to calculate the laser’s position using the observed parallax.
@@ -44,7 +44,8 @@ Thank you to Viva Suresh for his work designing the laser detection system. Here
 * The laser should be the brightest location in the image.
 * The laser location is constrained based on the baseline and laser axis. Using these two heuristics, we are developing techniques to detect the lasers within images taken by our camera.
 
-
+![Laser detection on Fred.](/assets/img/next_generation_fishsense/fred_laser_detection.png "Laser detection on Fred.")
+Image representing a laser detected leveraging the first of the two heuristics listed above.
 
 The above image represents a laser detected leveraging the first of the two heuristics listed above. As we continue to develop this portion of the project, we intend to leverage the second heuristic to generate a probabilistic map over all pixels in an image to determine which are most likely to be the laser.
 
