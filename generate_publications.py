@@ -1,7 +1,4 @@
 import bibtexparser
-from io import StringIO
-
-# def
 
 def format_authors(author_str: str):
     authors = [a.strip() for a in author_str.split("and")]
@@ -10,13 +7,23 @@ def format_authors(author_str: str):
         return f"{', '.join(authors[:-1])}, and {authors[-1]}"
     else:
         return authors[0]
+    
+def format_title(title: str):
+    characters_to_remove = [
+        "{",
+        "}"
+    ]
+
+    for character in characters_to_remove:
+        title = title.replace(character, "")
+
+    return title
 
 def main():
     with open("./publications.bib", "r") as f:
         entries = bibtexparser.load(f).entries
 
     with open("./publications.md", "w") as page_content:
-    # with StringIO() as page_content:
         page_content.writelines([
             "---\n",
             "layout: page\n",
@@ -28,7 +35,7 @@ def main():
         for entry in entries:
             page_content.writelines([
                 "\n",
-                f'{format_authors(entry["author"])}, "*{entry["title"]}*"',
+                f'{format_authors(entry["author"])}, "**{format_title(entry["title"])}**"',
                 "\n"
             ])
 
