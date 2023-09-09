@@ -32,7 +32,7 @@ def format_common(entry: Dict[str, str]):
     return f'{format_authors(entry["author"])}, "**{format_string(entry["title"])}**"'
 
 def format_link(entry: Dict[str, str]):
-    return f"[PDF](/assets/pdf/{entry['file'][1:-4]})"
+    return f"[PDF](/assets/pdfs/{entry['file'][1:-4]})"
 
 def format_date(entry: Dict[str, str]):
     return f"{entry['month']} {entry['year']}"
