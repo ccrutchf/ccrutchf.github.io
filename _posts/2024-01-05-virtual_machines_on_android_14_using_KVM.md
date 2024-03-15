@@ -105,7 +105,7 @@ $ adb push kvm.tar.gz /storage/emulated/0
 # tar -xvf kvm.tar.gz
 # cd /storage/emulated/0/kvm
 # mount vm-host.ext4 vm-host
-# /storage/emulated/0/kvm/vm-host/bin/gvproxy -debug -listen vsock://:1024 -listen unix:///storage/emulated/0/kvm/vm-host/network.sock
+# /storage/emulated/0/kvm/vm-host/gvisor-tap-vsock/bin/gvproxy -debug -listen vsock://:1024 -listen unix:///storage/emulated/0/kvm/vm-host/network.sock
 ```
 In a second terminal
 ```
