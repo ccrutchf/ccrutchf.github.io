@@ -32,3 +32,90 @@ $ exit
 ```
 
 ## Start VM Network Proxy at Boot
+```
+$ sudo vim ./ubuntu-rootfs/lib/systemd/system/gvisor-network-proxy.service
+```
+
+Set the value to the following
+```
+[Unit]
+Description=gvisor network proxy
+After=network.target
+
+[Service]
+ExecStart=/gvisor-tap-vsock/bin/gvforwarder
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```
+$ sudo chroot ./ubuntu-rootfs /bin/bash
+$ systemctl enable my-service
+$ exit
+```
+
+## Creating Android Scripts
+Download curl-aarch64 from https://github.com/moparisthebest/static-curl and place it into the `vm-host` directory.
+```
+$ cd ./vm-host
+$ sudo chmod +x ./curl-aarch64
+$ sudo vim ./start-network.sh
+```
+
+Set the value to the following
+```
+#! /system/bin/sh
+
+/storage/emulated/0/kvm/vm-host/gvisor-tap-vsock/bin/gvproxy -listen vsock://:1024 -listen unix:///storage/emulated/0/kvm/vm-host/network.sock &
+./curl-aarch64  --unix-socket /storage/emulated/0/kvm/vm-host/network.sock http:/unix/services/forwarder/expose -X POST -d '{"local":":22","remote":"192.168.127.2:22"}'
+```
+
+```
+$ sudo chmod +x ./start-network.sh
+$ sudo vim ./start-vm.sh
+```
+
+Set the value to the following
+```
+#! /system/bin/sh
+
+/apex/com.android.virt/bin/crosvm run --disable-sandbox -p 'init=/sbin/init' --rwroot /storage/emulated/0/kvm/vm-host/ubuntu-rootfs.ext4 /storage/emulated/0/kvm/Image --vsock 3 --mem 10240 --cpus 8
+```
+
+```
+$ sudo chmod +x ./start-vm.sh
+```
+
+## Unmount Directories
+``
+$ umount ./ubuntu-rootfs
+$ umount ./vm-host
+``
+
+## Prep the package for the phone
+```
+$ tar -cvf kvm.tar.gz ./kvm -I "pigz -9"
+```
+
+## Prep the phone
+```
+$ adb push kvm.tar.gz /storage/emulated/0
+# cd /storage/emulated/0
+# tar -xvf kvm.tar.gz
+# cd /storage/emulated/0/kvm
+# mount vm-host.ext4 vm-host
+# ./start-network.sh
+```
+
+Disconnect the phone from usb.  Install `Termux` from `F-Droid`.  In `Termux`:
+```
+# cd /storage/emulated/0/kvm/vm-host
+# ./start-vm.sh
+```
+
+## SSH into the Phone
+Grab the IP Address of the phone from its setting page.
+
+On your technician machine, `ssh <user>@<phone IP>`.  You should be connected to a machine with the hostname `android-vm`.
