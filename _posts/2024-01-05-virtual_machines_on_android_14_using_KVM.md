@@ -12,7 +12,7 @@ Throughout this post, I will document the process that was taken to run Ubuntu 2
 
 ## Install dependencies
 ```
-$ sudo apt install adb fastboot build-essential debootstrap
+$ sudo apt install adb fastboot build-essential debootstrap qemu-user-static
 $ rm -rf /usr/local/go && tar -C /usr/local -xzf go1.21.5.linux-amd64.tar.gz
 ```
 Add this to your `~/.bashrc`
