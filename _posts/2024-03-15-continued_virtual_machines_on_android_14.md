@@ -43,7 +43,7 @@ Description=gvisor network proxy
 After=network.target
 
 [Service]
-ExecStart=/gvisor-tap-vsock/bin/gvforwarder
+ExecStart=/gvisor-tap-vsock/gvforwarder
 Restart=on-failure
 
 [Install]
@@ -52,7 +52,7 @@ WantedBy=multi-user.target
 
 ```
 $ sudo chroot ./ubuntu-rootfs /bin/bash
-$ systemctl enable my-service
+$ systemctl enable gvisor-network-proxy
 $ exit
 ```
 
