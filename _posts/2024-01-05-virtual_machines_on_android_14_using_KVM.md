@@ -66,8 +66,8 @@ $ sudo mkfs.ext4 ./vm-host/ubuntu-rootfs.ext4
 $ sudo mount ./vm-host/ubuntu-rootfs.ext4 ubuntu-rootfs
 $ sudo debootstrap --arch=arm64 jammy ubuntu-rootfs
 $ echo "android-vm" | sudo tee ./ubuntu-rootfs/etc/hostname
-$ sudo mkdir -p /ubuntu-rootfs/etc/systemd/resolved.conf.d/
-$ sudo vim /ubuntu-rootfs/etc/systemd/resolved.conf.d/dns_servers.conf
+$ sudo mkdir -p ./ubuntu-rootfs/etc/systemd/resolved.conf.d/
+$ sudo vim ./ubuntu-rootfs/etc/systemd/resolved.conf.d/dns_servers.conf
 ```
 
 Set the value to the following
