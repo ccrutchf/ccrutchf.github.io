@@ -68,7 +68,7 @@ Set the value to the following
 ```
 #! /system/bin/sh
 
-/storage/emulated/0/kvm/vm-host/gvisor-tap-vsock/bin/gvproxy -listen vsock://:1024 -listen unix:///storage/emulated/0/kvm/vm-host/network.sock &
+/storage/emulated/0/kvm/vm-host/gvisor-tap-vsock/gvproxy -listen vsock://:1024 -listen unix:///storage/emulated/0/kvm/vm-host/network.sock &
 sleep 1
 ./curl-aarch64  --unix-socket /storage/emulated/0/kvm/vm-host/network.sock http:/unix/services/forwarder/expose -X POST -d '{"local":":22","remote":"192.168.127.2:22"}'
 ```
