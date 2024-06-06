@@ -83,9 +83,9 @@ $ passwd <username>
 $ chsh -s /bin/bash <username>
 $ exit
 $ sudo mkdir -p ./ubuntu-rootfs/gvisor-tap-vsock
-$ sudo cp -r ./gvisor-tap-vsock-arm64/bin/* ./ubuntu-rootfs/gvisor-tap-vsock
+$ sudo cp -r ./gvisor-tap-vsock-arm64/bin ./ubuntu-rootfs/gvisor-tap-vsock
 $ sudo mkdir -p ./vm-host/gvisor-tap-vsock
-$ sudo cp -r ./gvisor-tap-vsock-android/bin/* ./vm-host/gvisor-tap-vsock
+$ sudo cp -r ./gvisor-tap-vsock-android/bin ./vm-host/gvisor-tap-vsock
 $ sudo umount ./ubuntu-rootfs
 $ sudo umount ./vm-host
 ```
