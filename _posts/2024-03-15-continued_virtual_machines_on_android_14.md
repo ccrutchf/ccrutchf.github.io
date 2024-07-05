@@ -24,7 +24,7 @@ $ cp -r linux ./ubuntu-rootfs
 $ chroot ./ubuntu-rootfs /bin/bash
 $ apt install build-essential
 $ cd /linux
-$ make install
+$ make module_install
 $ cd /
 $ apt remove build-essential
 $ rm -rf /linux
