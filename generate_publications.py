@@ -46,6 +46,9 @@ def format_in_proceedings(entry: Dict[str, str]):
 def format_masters_thesis(entry: Dict[str, str]):
     return f"{format_common(entry)}, MS Thesis, Department of Electrical and Computer Engineering, {entry['school']}, {format_date(entry)} {format_link(entry)}"
 
+def format_patent(entry: Dict[str, str]):
+    return f"{format_common(entry)}, {entry['type']} {entry['number']}, {format_date(entry)} {format_link(entry)}"
+
 def format_entry(entry: Dict[str, str]):
     if entry["ENTRYTYPE"] not in ENTRY_FORMATTERS:
         raise ValueError(f'"{entry["ENTRYTYPE"]}" is a supported publication type.')
@@ -54,7 +57,9 @@ def format_entry(entry: Dict[str, str]):
 
 def main():
     with open("./publications.bib", "r") as f:
-        entries = bibtexparser.load(f).entries
+        # Keep entry types bibtexparser 1.x does not consider standard (e.g. @Patent).
+        parser = bibtexparser.bparser.BibTexParser(ignore_nonstandard_types=False)
+        entries = bibtexparser.load(f, parser=parser).entries
 
     with open("./publications.md", "w") as page_content:
         page_content.writelines([
@@ -79,7 +84,8 @@ def main():
 ENTRY_FORMATTERS: Dict[str, Callable] = {
     "article": format_article,
     "inproceedings": format_in_proceedings,
-    "mastersthesis": format_masters_thesis
+    "mastersthesis": format_masters_thesis,
+    "patent": format_patent
 }
 
 if __name__ == "__main__":
