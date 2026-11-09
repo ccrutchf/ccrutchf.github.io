@@ -62,13 +62,17 @@ jobs:
           pip install poetry
           poetry install --no-root
           poetry run python3 ./generate_publications.py
-      - name: Build the site in the jekyll/builder container
-        run: |
-          export JEKYLL_VERSION=3.8
-          docker run \
-          -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-          -e PAGES_REPO_NWO=${{ github.repository }} \
-          jekyll/builder:$JEKYLL_VERSION /bin/bash -c "chmod 777 /srv/jekyll && jekyll build --future"
+      # The jekyll/builder:3.8 image ships Ruby 2.6, which current gems no longer support.
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+      - name: Build the site
+        run: bundle exec jekyll build --future
+        env:
+          JEKYLL_ENV: production
+          PAGES_REPO_NWO: ${{ github.repository }}
       # - name: Setup Ruby
       #   uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
       #   with:
