@@ -285,3 +285,7 @@ beautiful-jekyll-theme-*.gem
 
 *.bib.sav
 publications.md
+
+# nix
+.bundle
+result
